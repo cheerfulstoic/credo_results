@@ -1,4 +1,4 @@
-defmodule CredoConsistentResultTypes.Collector do
+defmodule CredoResults.Collector do
   @moduledoc """
   Collects and analyzes return values from functions to detect inconsistent
   return type patterns.

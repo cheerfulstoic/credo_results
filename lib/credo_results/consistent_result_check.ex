@@ -1,14 +1,13 @@
-defmodule CredoConsistentResultTypes.Lenient do
+defmodule CredoResults.ConsistentResultCheck do
   @moduledoc """
-  A **lenient** custom Credo check that ensures functions consistently return either:
+  A custom Credo check that ensures functions consistently return either:
   - Result-style returns: `:ok`, `:error`, or tuples starting with `:ok` or `:error` (any length)
   - Non-result-style returns: anything else (true, false, nil, lists, regular tuples, etc.)
 
   But not a mix of both styles.
 
   This check recognizes tuples of any length as result tuples, as long as they start
-  with `:ok` or `:error`. For a stricter check that only accepts 2-element tuples,
-  see `Plausible.ConsistentResultTypes.Strict`.
+  with `:ok` or `:error`.
 
   ## Examples
 
@@ -54,7 +53,7 @@ defmodule CredoConsistentResultTypes.Lenient do
   """
 
   use Credo.Check,
-    id: "PL0001-lenient",
+    id: "PL0001",
     run_on_all: true,
     base_priority: :high,
     category: :consistency,
@@ -63,10 +62,6 @@ defmodule CredoConsistentResultTypes.Lenient do
       Functions should consistently return either **result-style returns**
       (`:ok`, `:error`, or tuples of any length starting with these atoms) or
       non-result-style values, but not a mix of both.
-
-      This is the **lenient** variant that accepts result tuples of any length.
-      For a stricter check that only accepts 2-element tuples, use
-      `Plausible.ConsistentResultTypes.Strict`.
 
       Mixing return types makes functions harder to use and can lead to bugs:
 
@@ -110,7 +105,7 @@ defmodule CredoConsistentResultTypes.Lenient do
 
   alias Credo.IssueMeta
   alias Credo.SourceFile
-  alias Plausible.ConsistentResultTypes.Collector
+  alias CredoResults.Collector
 
   @collector Collector
 
@@ -143,7 +138,7 @@ defmodule CredoConsistentResultTypes.Lenient do
     source_file
     |> @collector.find_inconsistent_functions()
     |> Enum.flat_map(fn {function_name, line_no, returns} ->
-      # Use lenient categorization
+      # Categorize returns based on ok/error tuples of any length
       {result_returns, non_result_returns} = @collector.categorize_returns_lenient(returns)
 
       # Only report if inconsistent
