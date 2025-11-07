@@ -1,11 +1,11 @@
-defmodule CredoResultTypes.MixProject do
+defmodule CredoResults.MixProject do
   use Mix.Project
 
   def project do
     [
-      app: :credo_result_types,
+      app: :credo_results,
       version: "0.1.0",
-      elixir: "~> 1.17",
+      elixir: "~> 1.15",
       elixirc_paths: elixirc_paths(Mix.env()),
       start_permanent: Mix.env() == :prod,
       deps: deps()
