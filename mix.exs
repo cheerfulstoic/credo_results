@@ -1,14 +1,31 @@
 defmodule CredoResults.MixProject do
   use Mix.Project
 
+  @source_url "https://github.com/cheerfulstoic/credo_results"
+
   def project do
     [
       app: :credo_results,
       version: "0.1.0",
       elixir: "~> 1.15",
+      description:
+        "A library adding credo checks to deal with :ok/:error results (:ok, :error, {:ok, ...}, {:error, ...})",
+      licenses: ["MIT"],
+      package: package(),
       elixirc_paths: elixirc_paths(Mix.env()),
       start_permanent: Mix.env() == :prod,
       deps: deps()
+    ]
+  end
+
+  defp package do
+    [
+      maintainers: ["Brian Underwood"],
+      licenses: ["MIT"],
+      links: %{
+        "GitHub" => @source_url,
+        Changelog: "#{@source_url}/blob/main/CHANGELOG.md"
+      }
     ]
   end
 
