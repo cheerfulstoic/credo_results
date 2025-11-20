@@ -14,7 +14,8 @@ defmodule CredoResults.MixProject do
       package: package(),
       elixirc_paths: elixirc_paths(Mix.env()),
       start_permanent: Mix.env() == :prod,
-      deps: deps()
+      deps: deps(),
+      docs: docs()
     ]
   end
 
@@ -35,6 +36,19 @@ defmodule CredoResults.MixProject do
   def application do
     [
       extra_applications: [:logger]
+    ]
+  end
+
+  defp docs do
+    [
+      extra_section: "GUIDES",
+      source_url: @source_url,
+      skip_undefined_reference_warnings_on: ["CHANGELOG.md"],
+      extras: [
+        "README.md",
+        "CHANGELOG.md"
+      ],
+      main: "readme"
     ]
   end
 
